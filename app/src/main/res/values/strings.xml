@@ -11,4 +11,13 @@
     <string name="project_submission">Project Submission</string>
     <string name="back">back</string>
     <string name="no_data">No Data</string>
+    <string name="yes">Yes</string>
+    <string name="STR_ARE_YOU_SURE">Are You Sure ?</string>
+    <string name="STR_SUBMISSION_SUCCESSFUL">Submission Successful</string>
+    <string name="STR_SUBMISSION_FAILED">Submission not Successful</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="project_on_github_link">Project On GitHub (link)</string>
+    <string name="STR_REQUIRED_FIELD"> * required Field</string>
 </resources>

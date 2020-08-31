@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.SubmitActivity"
-            android:parentActivityName=".activities.MainActivity"/>
+            android:parentActivityName=".activities.MainActivity" android:theme="@style/AppTheme.SubmitActivity"/>
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/SplashScreen">
