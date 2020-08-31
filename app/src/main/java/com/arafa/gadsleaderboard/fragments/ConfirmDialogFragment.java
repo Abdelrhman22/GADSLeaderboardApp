@@ -1,5 +1,6 @@
 package com.arafa.gadsleaderboard.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -11,6 +12,14 @@ import com.arafa.gadsleaderboard.R;
 
 public class ConfirmDialogFragment extends DialogFragment {
 
+    private ConfirmDialogFragmentListener listener;
+
+    public ConfirmDialogFragment (){}
+
+    @SuppressLint("ValidFragment")
+    public ConfirmDialogFragment (ConfirmDialogFragmentListener listener){
+        this.listener = listener;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -20,12 +29,22 @@ public class ConfirmDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_confirm, null);
         builder.setView(view);
         // define your view here
-
-
+        view.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.submit();
+            }
+        });
+        view.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.dismiss();
+            }
+        });
         return builder.create();
     }
     public interface ConfirmDialogFragmentListener {
-        void dismissDialog();
-
+        void submit();
+        void dismiss();
     }
 }
