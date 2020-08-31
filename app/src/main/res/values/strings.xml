@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">GADSLeaderBoard</string>
+    <string name="STR_LEADER_BOARD">LEADERBOARD</string>
+    <string name="STR_SUBMIT">Submit</string>
+    <string name="tab1">Learning Leaders</string>
+    <string name="tab2">Skill IQ Leaders</string>
+    <string name="learning_leader_details">%1$d learning hours, %2$s.</string>
+    <string name="skill_leader_details">%1$d skill IQ Score, %2$s.</string>
+
+    <string name="logo">Logo</string>
+    <string name="project_submission">Project Submission</string>
+    <string name="back">back</string>
+    <string name="no_data">No Data</string>
+</resources>
