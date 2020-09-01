@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.arafa.gadsleaderboard.models.LearningLeaders;
 import com.arafa.gadsleaderboard.models.SkillLeaders;
+import com.arafa.gadsleaderboard.models.SubmissionRequest;
 import com.arafa.gadsleaderboard.services.GadsApiService;
+import com.arafa.gadsleaderboard.services.GoogleFormApiService;
 
 import java.util.List;
 
@@ -24,5 +26,9 @@ public class Repository {
 
     public MutableLiveData<List<SkillLeaders>> getSkillLeaders() {
         return GadsApiService.getInstance().getSkillLeaders();
+    }
+
+    public MutableLiveData<Integer> submitRequest(SubmissionRequest request){
+        return GoogleFormApiService.getInstance().submitRequest(request);
     }
 }

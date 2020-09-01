@@ -7,16 +7,20 @@ public class RetrofitClient {
 
     private static Retrofit retrofit = null;
     public static final String GADS_BASE_URL = "https://gadsapi.herokuapp.com";
+    public static final String GOOGLE_FORMS_BASE_URL = "https://docs.google.com/forms/d/e/";
 
-    private static Retrofit getInstance(String BASE_URL) {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        }
-        return retrofit;
+    public RetrofitClient (String BASE_URL){
+        retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
     }
+//    private static Retrofit getInstance(String BASE_URL) {
+//        if (retrofit == null) {
+//            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+//        }
+//        return retrofit;
+//    }
 
     // Generic createService
-    public static <S> S createService(Class<S> serviceClass, String BASE_URL) {
-        return getInstance(BASE_URL).create(serviceClass);
+    public static <S> S createService(Class<S> serviceClass) {
+        return retrofit.create(serviceClass);
     }
 }

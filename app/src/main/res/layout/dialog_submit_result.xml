@@ -34,6 +34,7 @@
                 android:padding="5dp"
                 android:tint="@android:color/white"
                 app:srcCompat="@drawable/ic_close"
+                android:visibility="gone"
                 />
 
             <TextView

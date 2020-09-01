@@ -1,6 +1,8 @@
 package com.arafa.gadsleaderboard.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,15 +14,20 @@ import android.widget.Toast;
 import com.arafa.gadsleaderboard.R;
 import com.arafa.gadsleaderboard.fragments.ConfirmDialogFragment;
 import com.arafa.gadsleaderboard.fragments.ProgressDialogFragment;
+import com.arafa.gadsleaderboard.fragments.SubmissionResultDialogFragment;
+import com.arafa.gadsleaderboard.models.SubmissionRequest;
+import com.arafa.gadsleaderboard.viewModel.SubmitFormViewModel;
 
 public class SubmitActivity extends AppCompatActivity implements ConfirmDialogFragment.ConfirmDialogFragmentListener {
 
     private ConfirmDialogFragment confirmDialogFragment;
     private ProgressDialogFragment progressDialogFragment;
-
+    private SubmissionResultDialogFragment fragment;
     private EditText firstName, lastName, emailAddress, projectLink;
     private TextView submitButton;
     private String userFName, userLName, userEmail, userProjectLink;
+
+    private SubmitFormViewModel submitFormViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,7 @@ public class SubmitActivity extends AppCompatActivity implements ConfirmDialogFr
         setContentView(R.layout.activity_submit);
         confirmDialogFragment = new ConfirmDialogFragment(this);
         progressDialogFragment = new ProgressDialogFragment();
+        submitFormViewModel = ViewModelProviders.of(this).get(SubmitFormViewModel.class);
         initUI();
 
     }
@@ -88,7 +96,34 @@ public class SubmitActivity extends AppCompatActivity implements ConfirmDialogFr
         // 1- show progress dialog
         progressDialogFragment.show(getSupportFragmentManager(), "progress-dialog");
         // 2- start request
+        SubmissionRequest request = new SubmissionRequest(userFName, userLName, userEmail, userProjectLink);
+        submitFormViewModel.submitRequestLiveData(request).observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                progressDialogFragment.dismiss();
+                if (integer == SubmitFormViewModel.STATUS_OK) {
+                    fragment = new SubmissionResultDialogFragment();
+                    Bundle args = new Bundle();
+                    args.putBoolean("status", true);
+                    fragment.setArguments(args);
+                    fragment.show(getFragmentManager(), "dialog");
+                    resetView();
+                } else {
+                    fragment = new SubmissionResultDialogFragment();
+                    Bundle args = new Bundle();
+                    args.putBoolean("status", false);
+                    fragment.setArguments(args);
+                    fragment.show(getFragmentManager(), "dialog");
+                }
+            }
+        });
+    }
 
+    private void resetView() {
+        firstName.setText("");
+        lastName.setText("");
+        emailAddress.setText("");
+        projectLink.setText("");
     }
 
     @Override
